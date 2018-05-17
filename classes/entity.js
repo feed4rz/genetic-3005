@@ -6,7 +6,7 @@ class Entity {
     this.renderer = renderer
 
     /* Entity id */
-    this.id = Date.now()
+    this.id = `${Date.now().toString(16)}${Math.random().toString(16)}`
 
     /* Entity position */
     this.x = x
