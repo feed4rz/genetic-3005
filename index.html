@@ -1,0 +1,37 @@
+<canvas id="canvas" width="750" height="750"></canvas>
+<script src="./build.js"></script>
+<script>
+let renderer
+let game
+let blobs = []
+window.onload = function() {
+  renderer = new Renderer(document.getElementById('canvas'))
+  game = new Game(renderer)
+
+  for(let i = 0; i < 30; i++) {
+    new Blob(game, getRandomInt(1, 49) * 15, getRandomInt(1, 49) * 15)
+  }
+
+  for(let i = 0; i < 150; i++) {
+    new Food(game, getRandomInt(1, 49) * 15, getRandomInt(1, 49) * 15)
+  }
+
+  for(let i = 0; i < 50; i++) {
+    new Poison(game, getRandomInt(1, 49) * 15, getRandomInt(1, 49) * 15)
+    new Wall(game, i*15, 0)
+    new Wall(game, 0, i*15)
+    new Wall(game, i*15, 735)
+    new Wall(game, 735, i*15)
+  }
+
+  setInterval(() => {
+    game.step()
+  }, 50)
+}
+
+function getRandomInt(min, max) {
+  min = Math.ceil(min)
+  max = Math.floor(max)
+  return Math.floor(Math.random() * (max - min)) + min
+}
+</script>
