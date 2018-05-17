@@ -12,9 +12,6 @@ window.onload = function() {
     new Blob(game, getRandomInt(1, 49) * 15, getRandomInt(1, 49) * 15)
   }
 
-  const immortal = new Blob(game, getRandomInt(1, 49) * 15, getRandomInt(1, 49) * 15)
-  immortal.hp = 1000000
-
   for(let i = 0; i < 150; i++) {
     new Food(game, getRandomInt(1, 49) * 15, getRandomInt(1, 49) * 15)
   }
@@ -29,7 +26,6 @@ window.onload = function() {
 
   setInterval(() => {
     game.step()
-    console.log(immortal.hp)
   }, 50)
 }
 
