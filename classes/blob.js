@@ -141,7 +141,7 @@ class Blob extends Entity {
 					}
 					if(o instanceof Food) {
 						o.removeSelf()
-						this.hp += 10
+						this.hp += 30
 						break
 					}
 					if(o instanceof Poison) {
