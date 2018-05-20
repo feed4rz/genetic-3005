@@ -411,7 +411,7 @@ class Gene {
 	}
 }
 class Game {
-	constructor(renderer, step_interval = 50) {
+	constructor(renderer, step_timeout = 50) {
 		this.renderer = renderer
 
 		this.blobs = []
@@ -425,8 +425,8 @@ class Game {
 
 		this.generation = 0
 
-		this.step_interval = step_interval
-		this.interval = null
+		this.step_timeout = step_timeout
+		this.timeout = null
 	}
 
 	init(population = 36, top = 6) {
@@ -441,6 +441,7 @@ class Game {
 	}
 
 	_step() {
+		if(this.timeout) clearInterval(this.timeout)
 		if(this.blobs.length == this.top) return this._stage()
 
 		for(let i = 0; i < this.blobs.length; i++) {
@@ -451,17 +452,23 @@ class Game {
 
 			this.blobs[i].step()
 		}
+
+		if(this.blobs.length == this.top) return this._stage()
+
+		this.timeout = setTimeout(() => {
+	    this._step()
+	  }, this.step_timeout)
 	}
 
 	_stage() {
-		if(this.interval) clearInterval(this.interval)
+		if(this.timeout) clearInterval(this.timeout)
 
 		this._populate()
 		this._generateMap()
 
-		this.interval = setInterval(() => {
+		this.timeout = setTimeout(() => {
 	    this._step()
-	  }, this.step_interval)
+	  }, this.step_timeout)
 	}
 
 	_populate() {
